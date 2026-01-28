@@ -1,3 +1,11 @@
+function convertToArabicNumbers(num) {
+  const arabicNumbers = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+  return String(num)
+    .split("")
+    .map((digit) => arabicNumbers[parseInt(digit)])
+    .join("");
+}
+
 // خريطة أرقام 7-Segment (a,b,c,d,e,f,g)
 const digitMap = {
   0: [1, 1, 1, 1, 1, 1, 0],
@@ -102,7 +110,7 @@ function updateClocks() {
       const parts = gFormatter.formatToParts(now);
       const d = parts.find((p) => p.type === "day").value;
       const mName = parts.find((p) => p.type === "month").value;
-      const mNum = now.getMonth() + 1;
+      const mNum = convertToArabicNumbers(now.getMonth() + 1);
       const y = parts.find((p) => p.type === "year").value;
       miladiEl.innerText = `${d} ${mName} -${mNum}- ${y} م`;
     }

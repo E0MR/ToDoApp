@@ -1,0 +1,48 @@
+/* Base Styles (Mobile First) */
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    /* No scroll on body */
+    transition:
+        background var(--transition-speed),
+        color var(--transition-speed);
+    box-sizing: border-box;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    background: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Content is managed by main-grid */
+    transition:
+        background var(--transition-speed),
+        color var(--transition-speed),
+        box-shadow var(--transition-speed);
+}
+
+/* Scrollbars */
+#todoList::-webkit-scrollbar,
+.app-container::-webkit-scrollbar,
+.managed-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+#todoList::-webkit-scrollbar-thumb,
+.app-container::-webkit-scrollbar-thumb,
+.managed-list::-webkit-scrollbar-thumb {
+    background: var(--shadow-dark);
+    border-radius: 10px;
+}

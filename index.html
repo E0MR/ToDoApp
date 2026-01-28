@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDoApp</title>
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/tasks.css" />
+    <link rel="stylesheet" href="css/modals.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+  </head>
+
+  <body>
+    <div class="app-container">
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+        ☀️
+      </button>
+
+      <div class="main-grid">
+        <div class="dashboard">
+          <div class="dashboard-main">
+            <div class="analog-clock">
+              <div class="clock-face">
+                <div class="center-dot"></div>
+                <div class="markings" id="clockMarkings"></div>
+                <div class="hand hour" id="hour-h"></div>
+                <div class="hand min" id="min-h"></div>
+                <div class="hand sec" id="sec-h"></div>
+              </div>
+            </div>
+
+            <div class="left-panel">
+              <div class="digital-7seg">
+                <div id="h1" class="digit-container"></div>
+                <div id="h2" class="digit-container"></div>
+                <div class="separator">:</div>
+                <div id="m1" class="digit-container"></div>
+                <div id="m2" class="digit-container"></div>
+                <div class="separator">:</div>
+                <div id="s1" class="digit-container"></div>
+                <div id="s2" class="digit-container"></div>
+
+                <div class="ampm" id="ampm"></div>
+              </div>
+
+              <div class="date-panel">
+                <div id="date-day">...</div>
+                <div id="date-hijri">...</div>
+                <div id="date-miladi">...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-card">
+          <input
+            type="text"
+            id="todoInput"
+            placeholder="أدخل مهمتك الجديدة..."
+          />
+          <div style="display: flex; gap: 10px">
+            <select id="categorySelect"></select>
+            <button class="add-btn" onclick="addTask()">
+              <span id="addIcon"></span> إضافة مهمة
+            </button>
+          </div>
+        </div>
+
+        <div class="category-controls">
+          <div style="display: flex; gap: 10px; flex-grow: 1">
+            <select id="filterSelect" onchange="render()"></select>
+            <button
+              class="add-cat-btn"
+              onclick="openAddCategoryModal()"
+              title="إضافة تصنيف"
+            >
+              +
+            </button>
+          </div>
+          <button class="manage-cat-btn" onclick="openCategoryManageModal()">
+            تنظيم
+          </button>
+        </div>
+
+        <div class="list-container">
+          <ul id="todoList"></ul>
+        </div>
+
+        <div class="backup-actions">
+          <button
+            class="backup-btn export"
+            onclick="confirmExport()"
+            title="تصدير نسخة احتياطية"
+          >
+            <span id="exportIcon"></span> تصدير
+          </button>
+          <button
+            class="backup-btn import"
+            onclick="document.getElementById('importFileInput').click()"
+            title="استعادة نسخة احتياطية"
+          >
+            <span id="importIcon"></span> استيراد
+          </button>
+          <input
+            type="file"
+            id="importFileInput"
+            style="display: none"
+            accept=".json"
+            onchange="handleImport(event)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal-overlay">
+      <div class="modal-box">
+        <h3>تعديل المهمة</h3>
+        <input type="text" id="editTodoInput" placeholder="نص المهمة..." />
+        <select id="editCategorySelect"></select>
+        <div class="modal-actions">
+          <button class="modal-btn cancel" onclick="closeEditModal()">
+            إلغاء
+          </button>
+          <button class="modal-btn confirm success" id="saveEditBtn">
+            حفظ التغييرات
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="catModal" class="modal-overlay">
+      <div class="modal-box">
+        <h3>إضافة تصنيف جديد</h3>
+        <input type="text" id="newCatInput" placeholder="اسم التصنيف..." />
+        <div class="modal-actions">
+          <button class="modal-btn cancel" onclick="closeCatModal()">
+            إلغاء
+          </button>
+          <button
+            class="modal-btn confirm success"
+            onclick="handleAddCategory()"
+          >
+            إضافة
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay">
+      <div class="modal-box">
+        <h3 id="modalTitle">تأكيد</h3>
+        <p id="modalText">هل أنت متأكد؟</p>
+        <div class="modal-actions">
+          <button class="modal-btn cancel" onclick="closeModal()">إلغاء</button>
+          <button class="modal-btn confirm" id="confirmBtn">موافق</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Categories Modal -->
+    <div id="manageCatModal" class="modal-overlay">
+      <div class="modal-box">
+        <h3>إدارة التصنيفات</h3>
+        <div id="manageCatList" class="managed-list"></div>
+        <div class="modal-actions">
+          <button class="modal-btn cancel" onclick="closeCategoryManageModal()">
+            إغلاق
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

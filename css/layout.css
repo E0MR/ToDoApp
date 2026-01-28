@@ -1,0 +1,133 @@
+/* Layout & Media Queries */
+
+/* Mobile & Tablet Layout (Default) */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr auto;
+    /* Let list container take remaining space */
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    /* Fill app-container */
+    box-sizing: border-box;
+}
+
+/* Ensure equal margins and perfect 100vh height */
+.app-container {
+    max-width: 100%;
+    height: 100vh;
+    /* Strictly 100% of viewport */
+    padding: 15px;
+    /* Symmetrical margins for mobile */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Prevent body scroll */
+}
+
+/* Dynamic height for the task display area */
+.list-container {
+    flex-grow: 1;
+    /* Take all available space */
+    min-height: 0;
+    /* Critical for flex/grid shrink behavior */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#todoList {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* Scrolled only here */
+}
+
+.dashboard {
+    grid-area: auto;
+}
+
+.input-card {
+    grid-area: auto;
+}
+
+.category-controls {
+    grid-area: auto;
+}
+
+.list-container {
+    grid-area: auto;
+}
+
+.backup-actions {
+    grid-area: auto;
+}
+
+/* Desktop Enhancements (>= 900px) */
+@media (min-width: 900px) {
+    .app-container {
+        max-width: 1100px;
+        padding: 30px;
+        /* Symmetrical margins for desktop */
+        margin: 0 auto;
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr;
+        /* Top, Middle/Backup, then List fills rest */
+        grid-template-areas:
+            "dash input"
+            "backup cat"
+            "list list";
+        gap: 25px;
+    }
+
+    .dashboard {
+        grid-area: dash;
+    }
+
+    .input-card {
+        grid-area: input;
+    }
+
+    .category-controls {
+        grid-area: cat;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .backup-actions {
+        grid-area: backup;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .list-container {
+        grid-area: list;
+    }
+
+    /* Sync Heights */
+    .dashboard,
+    .input-card {
+        height: 150px;
+        /* Balanced height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #todoList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+/* Tablet refinements */
+@media (min-width: 600px) and (max-width: 899px) {
+    .app-container {
+        max-width: 550px;
+    }
+}

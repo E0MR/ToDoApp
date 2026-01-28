@@ -1,0 +1,20 @@
+:root {
+    --bg-color: #e0e5ec;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --primary-text: #444;
+    --accent: #6d5dfc;
+    --segment-on: #6d5dfc;
+    --segment-off: rgba(163, 177, 198, 0.2);
+    --danger: #ff4757;
+    --success: #2ed573;
+    --transition-speed: 0.4s;
+}
+
+[data-theme="dark"] {
+    --bg-color: #2d3436;
+    --shadow-light: #3d4446;
+    --shadow-dark: #1d2122;
+    --primary-text: #dfe6e9;
+    --segment-off: rgba(29, 33, 34, 0.3);
+}
